@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <h2>Hackathon Categories</h2>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="categories-page">
+        <h1>Select Hackathon Category</h1>
+        <div class="categories-container">
+            <div class="category" id="category1">
+                <img src="images/AI&ML.jpg" alt="AI&ML" class="category-image">
+                <p>AI & ML</p>
+            </div>
+            <div class="category" id="category2">
+                <img src="images/blockchain.jpg" alt="Blockchain" class="category-image">
+                <p>Blockchain</p>
+            </div>
+            <div class="category" id="category3">
+                <img src="images/cybersecurity.jpg" alt="Cybersecurity" class="category-image">
+                <p>Cybersecurity</p>
+            </div>
+            <div class="category" id="category4">
+                <img src="images/fintech.jpg" alt="Fintech" class="category-image">
+                <p>FinTech</p>
+            </div>
+            <div class="category" id="category5">
+                <img src="images/medical.jpg" alt="Medical" class="category-image">
+                <p>Medical & Healthcare</p>
+            </div>
+            <div class="category" id="category5">
+                <img src="images/UX.jpg" alt="Medical" class="category-image">
+                <p>UX Design</p>
+            </div>
+        </div>
+        <div class="form-buttons">
+            <button type="button" class="back-button" onclick="window.location.href='register.html'">Back</button>
+            <button type="button" id="submit-button" class="primary-button" disabled>Submit</button>
+        </div>
+    </div>
+
+    <script>
+        // Get all the category divs
+        const categories = document.querySelectorAll('.category');
+        const submitButton = document.getElementById('submit-button');
+        let selectedCategory = null;
+
+        // Add hover effect and select category on click
+        categories.forEach(category => {
+            category.addEventListener('mouseenter', () => {
+                category.classList.add('hovered');
+            });
+
+            category.addEventListener('mouseleave', () => {
+                if (selectedCategory !== category) {
+                    category.classList.remove('hovered');
+                }
+            });
+
+            category.addEventListener('click', () => {
+                // Reset previously selected category
+                if (selectedCategory) {
+                    selectedCategory.classList.remove('selected');
+                }
+
+                // Mark this category as selected
+                selectedCategory = category;
+                category.classList.add('selected');
+                submitButton.disabled = false; // Enable submit button when a category is selected
+            });
+        });
+        
+        // Handle form submission logic
+        submitButton.addEventListener('click', () => {
+            if (selectedCategory) {
+                const categoryName = selectedCategory.querySelector('p').textContent; // Get the category name
+                localStorage.setItem('selectedCategory', categoryName); // Save it to local storage
+                window.location.href = 'submit.html'; // Redirect to the submit page
+            } else {
+                alert('Please select a category before submitting.');
+            }
+        });
+
+    </script>
+</body>
+</html>
